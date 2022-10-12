@@ -5,25 +5,23 @@ try {
         withFileTypes: true
     });
     files.forEach(file => {
-        if (!file.isDirectory() && fileIsValid(file.name)) {
-            const [_name, type, _index, _extension] = file.name.split('.');
-            if (!fs.existsSync(type)) {
+        if (!file.isDirectory() && file.name !== 'index.js') {
+            const [_number, week, weekNumber, _lesson, _lessonNumber, _day] = file.name.split('-');
+            const number = `0${weekNumber}`.slice(-2);
+            const folder = `${number}-${week}-${weekNumber}`;
+            if (!fs.existsSync(folder)) {
                 try {
-                    fs.mkdirSync(type);
-                    copyFile(file.name, type);
+                    fs.mkdirSync(folder);
+                    copyFile(file.name, folder);
                 } catch(_e) {
-                    console.log('Error al crear directorio ' + type);
+                    console.log('Error al crear directorio ' + fodler);
                 }
             }
-            copyFile(file.name, type);
+            copyFile(file.name, folder);
         }
     });
 } catch (_e) {
     console.log('Error leyendo el directorio');
-}
-
-function fileIsValid(name) {
-    return (name.split('.').length === 4);
 }
 
 function copyFile(name, dir) {
@@ -33,3 +31,4 @@ function copyFile(name, dir) {
         console.log('Error copiando ' + name);
     }
 }
+
