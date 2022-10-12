@@ -14,7 +14,7 @@ try {
                     fs.mkdirSync(folder);
                     copyFile(file.name, folder);
                 } catch(_e) {
-                    console.log('Error al crear directorio ' + fodler);
+                    console.log('Error al crear directorio ' + folder);
                 }
             }
             copyFile(file.name, folder);
